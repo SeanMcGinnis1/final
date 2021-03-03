@@ -28,8 +28,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
 })
 
 
-//did this delete Richard's comment
-//testing the committ situation
 
 function parsecontent(json) {
  
@@ -44,5 +42,11 @@ function parsecontent(json) {
     posts.push(post)
   }
   console.log(posts)
+  
+  var wordsTitle = []
+  for (let i = 0; i<posts.length; i++) {
+    wordsTitle.push(posts[i].postTitle.split(" "))
+  }
+  console.log(wordsTitle)
 }
 
