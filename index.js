@@ -7,6 +7,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let feed = json.results
     
     parsecontent(json)
+
+    //Sean is testing things below this line
+    let response1 = await fetch('/.netlify/functions/sampletest')
+    let data = await response1.json()
+    console.log(data)
+    //end of Sean testing things
+
   } else {
     // Signed out
     console.log('signed out')
@@ -45,4 +52,15 @@ function parsecontent(json) {
   }
   console.log(posts)
 }
+
+
+
+
+
+
+
+
+
+
+
 
