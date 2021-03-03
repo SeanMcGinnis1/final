@@ -1,17 +1,17 @@
 firebase.auth().onAuthStateChanged(async function(user) {
   if (user) {
     // Signed in
-    console.log('signed in')
-    let response = await fetch(`https://feed2json.org/convert?url=https%3A%2F%2Fwww.reddit.com%2Fr%2Fwallstreetbets%2F.rss`)
-    let json = await response.json()
+    // console.log('signed in')
+    // let response = await fetch(`https://feed2json.org/convert?url=https%3A%2F%2Fwww.reddit.com%2Fr%2Fwallstreetbets%2F.rss`)
+    // let json = await response.json()
     //let feed = json.results
     
     parsecontent(json)
 
     //Sean: this calls the netlify function to fetch the JSON from WSB
     let response1 = await fetch('/.netlify/functions/feed2json')
-    let data = await response1.json()
-    console.log(data)
+    let json = await response1.json()
+    //console.log(json)
     //Sean: End of call to netlify function to fetch the JSON
 
   } else {
