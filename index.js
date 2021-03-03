@@ -35,12 +35,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
 })
 
 
-//did this delete Richard's comment
-//testing the committ situation
 
 function parsecontent(json) {
  
   var posts = []
+  var wordsTitle = []
+  var word = ""
+
   for (let i = 0; i<json.items.length; i++) {
     
     let post = {
@@ -51,16 +52,34 @@ function parsecontent(json) {
     posts.push(post)
   }
   console.log(posts)
+  
+
+  for (let i = 0; i<posts.length; i++) {
+  
+    wordsTitle.push(
+      addUpperCaseOnly(posts[i].postTitle.split(" "))
+      )
+  }
+  console.log(wordsTitle)
 }
 
+function addUpperCaseOnly(array){
+  var uppercaseWords = []
+  for (let i = 0; i<array.length; i++) {
+     if (isUpperCase(array[i])){
+      //console.log(isUpperCase(array[i]))
+      //console.log(array[i])
+      uppercaseWords.push[array[i]]
+     } 
+     //else{}
+  }  
+  console.log(uppercaseWords)
+  return uppercaseWords
+}
 
-
-
-
-
-
-
-
-
-
-
+function isUpperCase(str) {
+  // console.log(str)
+  // console.log(str.toUpperCase())
+  // console.log(str === str.toUpperCase())
+  return str === str.toUpperCase()
+}
