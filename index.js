@@ -27,6 +27,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
   }
 })
 
+//testing the committ situation
+
 function parsecontent(json) {
  
   var posts = []
