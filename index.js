@@ -44,7 +44,7 @@ function parsecontent(json) {
     }
     posts.push(post)
   }
-  console.log(posts)
+  //console.log(posts)
   
 
   for (let i = 0; i<posts.length; i++) {
@@ -57,22 +57,15 @@ function parsecontent(json) {
 }
 
 function addUpperCaseOnly(array){
-  var uppercaseWords = []
+  var uppercaseWords = [""]
   for (let i = 0; i<array.length; i++) {
      if (isUpperCase(array[i])){
-      //console.log(isUpperCase(array[i]))
-      //console.log(array[i])
-      uppercaseWords.push[array[i]]
+      uppercaseWords.push(array[i])
      } 
-     //else{}
   }  
-  console.log(uppercaseWords)
   return uppercaseWords
 }
 
 function isUpperCase(str) {
-  // console.log(str)
-  // console.log(str.toUpperCase())
-  // console.log(str === str.toUpperCase())
   return str === str.toUpperCase()
 }
