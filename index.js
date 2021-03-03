@@ -7,13 +7,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let feed = json.results
     
     parsecontent(json)
-
-    //Sean is testing things below this line
-    let response1 = await fetch('/.netlify/functions/sampletest')
-    let data = await response1.json()
-    console.log(data)
-    //end of Sean testing things
-
   } else {
     // Signed out
     console.log('signed out')
@@ -71,32 +64,15 @@ function addUpperCaseOnly(array){
       //console.log(array[i])
       uppercaseWords.push[array[i]]
      } 
-     else{
-      uppercaseWords.push[array[i]]
-     }
+     //else{}
   }  
   console.log(uppercaseWords)
   return uppercaseWords
 }
 
-<<<<<<< HEAD
 function isUpperCase(str) {
   // console.log(str)
   // console.log(str.toUpperCase())
   // console.log(str === str.toUpperCase())
   return str === str.toUpperCase()
-  
 }
-=======
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 45fee19065ce1227523693f80468987ce5edd0d5
