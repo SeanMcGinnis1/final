@@ -8,11 +8,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
     
     parsecontent(json)
 
-    //Sean is testing things below this line
-    let response1 = await fetch('/.netlify/functions/sampletest')
+    //Sean: this calls the netlify function to fetch the JSON from WSB
+    let response1 = await fetch('/.netlify/functions/feed2json')
     let data = await response1.json()
     console.log(data)
-    //end of Sean testing things
+    //Sean: End of call to netlify function to fetch the JSON
 
   } else {
     // Signed out
