@@ -7,6 +7,13 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let feed = json.results
     
     parsecontent(json)
+
+    //Sean: this calls the netlify function to fetch the JSON from WSB
+    let response1 = await fetch('/.netlify/functions/feed2json')
+    let data = await response1.json()
+    console.log(data)
+    //Sean: End of call to netlify function to fetch the JSON
+
   } else {
     // Signed out
     console.log('signed out')
