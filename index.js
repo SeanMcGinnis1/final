@@ -1,6 +1,6 @@
 firebase.auth().onAuthStateChanged(async function(user) {
   let db = firebase.firestore()
-  let historicalPosts = await db.collection('posts').get()
+  
 
 
   if (user) {
@@ -18,7 +18,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // console.log(json)
     //Sean: End of call to netlify function to fetch the JSON
 
-    parsecontent(json)
+    parsecontent(json,db)
 
   } else {
     // Signed out
@@ -42,8 +42,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
 
 
-function parsecontent(json) {
- 
+function parsecontent(json, db) {
+
   var posts = []
   var wordsTitle = []
   var word = ""
@@ -60,8 +60,8 @@ function parsecontent(json) {
   }
   //console.log(posts)
   //check posts for duplicate entries already stored in firebase
-  newPosts(posts)
-  //find upper case words
+  newPosts(posts,db)
+  //find clean the words
   for (let i = 0; i<posts.length; i++) {
   
     wordsTitle.push(
@@ -71,18 +71,19 @@ function parsecontent(json) {
   console.log(wordsTitle)
 }
 
-async function newPosts(posts) {
+async function newPosts(posts, db) {
    //check if postkey is in firebase already
    //adds in the postkeys into firebase
+   let historicalPosts = await db.collection('posts').get()
    for (let i = 0; i<posts.length; i++) {
-      // let docRef = await db.collection('posts').add({ 
-      //   movieID: posts[i].postKey 
-      // })
+       let docRef = await db.collection('posts').add({ 
+        PostTitle: posts[i].postKey 
+       })
   // else proceed
   }
 }
 
-
+//removes special characters and takes only all-caps words for potential tickers to be checked against firebase database
 function cleanWord(array){
   var uppercaseWords = [""]
   for (let i = 0; i<array.length; i++) {
