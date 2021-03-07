@@ -18,7 +18,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
     // console.log(json)
     //Sean: End of call to netlify function to fetch the JSON
 
-    parsecontent(json,db)
+    //parsecontent(json,db)
+    await fetch('/.netlify/functions/parseTheContent')
 
   } else {
     // Signed out
