@@ -1,8 +1,6 @@
 firebase.auth().onAuthStateChanged(async function(user) {
   let db = firebase.firestore()
   
-
-
   if (user) {
     // Signed in
      console.log('signed in')
@@ -22,8 +20,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
      await fetch('/.netlify/functions/Feed2JSON')
      
-
-
   } else {
     // Signed out
     console.log('signed out')
