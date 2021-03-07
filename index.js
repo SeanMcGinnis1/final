@@ -262,7 +262,7 @@ document.querySelector('.OL').innerHTML = `
 `
 //Create functionality for clicked button
 let FButton = document.querySelector(`#favorites`)
-Futton.addEventListener('click', async function(event) {
+FButton.addEventListener('click', async function(event) {
   event.preventDefault()
   console.log(`Favorites button clicked!`)
   //figure out how to get the right user ID for this
