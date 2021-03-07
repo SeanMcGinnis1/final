@@ -34,3 +34,32 @@
   </div>
 </body>
 </html>
+
+
+
+
+
+
+<!--Code for later-->
+<!--//Building out the Graph through the DIV class
+//Steps for graph:
+//1) pull data from firebase
+let countedTickersQuery = await db.collection('countedtickers').get()
+let CountedTickers = historicalTickersQuery.docs
+
+for (let q=0; q<countedTickers.length; q++) {
+  let T = countedTickers[q].data()
+  console.log(FD.ticker)
+  console.log(FD.count)
+ console.log(T.ticker)
+ console.log(T.count)
+//2) sort top 5 most commented tickers
+//3) add inner html to show graph
+document.querySelector('.OL').innerHTML = `
+<ol>
+  <li>Tacos</li>
+  <li>Bacon</li>
+  <li>Pizza</li>
+  <li>Fried Chicken</li>
+</ol>
+`

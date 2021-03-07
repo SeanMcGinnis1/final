@@ -20,6 +20,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     parsecontent(json,db)
 
+
+
   } else {
     // Signed out
     console.log('signed out')
