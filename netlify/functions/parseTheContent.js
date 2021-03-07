@@ -3,7 +3,9 @@ let firebase = require('./firebase')
 
 exports.handler = async function(event) {
     let db = firebase.firestore()
+    console.log("after fetch")
     let response1 = await fetch('/.netlify/functions/Feed2JSON')
+    console.log("after fetch")
     let json = await response1.json()
 
     var posts = []
@@ -111,5 +113,4 @@ exports.handler = async function(event) {
       }  
     } 
     console.log(tickerCounted)
-   
   }
