@@ -10,8 +10,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let json = await response.json()
     //let feed = json.results
     
-    
-
     //Sean: this calls the netlify function to fetch the JSON from WSB
      let response1 = await fetch('/.netlify/functions/feed2json')
      let json = await response1.json()
@@ -21,6 +19,9 @@ firebase.auth().onAuthStateChanged(async function(user) {
     parsecontent(json,db)
     generateGraph(db)
 
+
+     await fetch('/.netlify/functions/Feed2JSON')
+     
 
 
   } else {
