@@ -1,8 +1,6 @@
 firebase.auth().onAuthStateChanged(async function(user) {
   let db = firebase.firestore()
   
-
-
   if (user) {
     // Signed in
      console.log('signed in')
@@ -13,8 +11,6 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //Sean: this calls the netlify function to fetch the JSON from WSB
      await fetch('/.netlify/functions/Feed2JSON')
      
-
-
   } else {
     // Signed out
     console.log('signed out')
