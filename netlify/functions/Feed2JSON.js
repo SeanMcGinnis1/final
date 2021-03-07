@@ -112,8 +112,8 @@ exports.handler = async function(event) {
     } 
     console.log(tickerCounted)
 
-
     return {
-        statusCode: 200
+        statusCode: 200,
+        body: JSON.stringify(posts)
     }
 }

@@ -11,8 +11,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let feed = json.results
     
     //Sean: this calls the netlify function to fetch the JSON from WSB
-     let response1 = await fetch('/.netlify/functions/Feed2JSON')
-     let json = await response1.json()
+     await fetch('/.netlify/functions/Feed2JSON')
+     
 
 
   } else {
