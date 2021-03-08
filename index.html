@@ -16,6 +16,7 @@
   <!--This is the button to switch to favorited items-->
   <button id="favorites" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Show Favorites</button>
   <div class="py-8 md:px-32 px-0 md:w-1/2 w-full mx-auto">
+  <div class="py-8 md:px-32 px-0 md:w-1/2 mx-4 w-full mx-auto">
     <div class="flex items-center">
       <div class="md:mx-0 mx-4"><span class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">WSB Tickers</span></div>
       <div class="ml-auto text-sm sign-in-or-sign-out"></div>
@@ -24,6 +25,17 @@
   </div>
   
  
+    <div class="OL"></div>
+    <!--This is the botton to switch to favorited item --> 
+    <button id="favorites" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Show Favorites</button>
+
+    <form id = "new favorite" class="w-full mt-8">
+      <input type="text" id="new favorite ticker" name="new favorite ticker" placeholder="enter stock ticker" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+      <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Store ticker</button>
+    </form>
+
+  </div>
+  
   <!-- Put the Firebase config here -->
   <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
@@ -31,7 +43,7 @@
   <!-- Firebase Auth -->
   <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
-
+ 
   <script>
     // Your web app's Firebase configuration
     var firebaseConfig = {
@@ -43,9 +55,10 @@
     appId: "1:189253002479:web:914d0e027b658233c9a71a"
     } 
     // Initialize Firebase
+    
     firebase.initializeApp(firebaseConfig);
   </script>
   <script src="index.js"></script>
 </body>
 
-</html>
+</html> 

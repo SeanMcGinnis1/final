@@ -61,10 +61,7 @@ async function newPostsCleanPosts(posts, db) {
         )
         }
     }
-    console.log(posts)
-    //console.log("check clean")
-    //console.log(cleanedWords)
-    //console.log("check clean")
+  
     
     tickerCount (cleanedWords, db)
 }
@@ -77,11 +74,9 @@ async function tickerCount (cleanedWords, db) {
         for (let i = 0; i<knowntickers.length; i++) {
             tickerList.push([knowntickers[i].data().text, 0])
         }
-        console.log(tickerList)
-        console.log(cleanedWords)
+        
         for (let c = 0; c<cleanedWords.length; c++){
         for (let w = 0; w<cleanedWords[w].length; w++){
-            //console.log(cleanedWords[c][w])
             for (let t = 0; t<tickerList.length; t++){
             if (cleanedWords[c][w]==tickerList[t][0]) {
                 tickerList[t][1] = tickerList[t][1] + 1
@@ -90,14 +85,12 @@ async function tickerCount (cleanedWords, db) {
         }
     }
 
-     //console.log(tickerList)
         let freshdataquery = await db.collection('freshdata').get()
         freshdata = freshdataquery.docs
         for (let ff = 0; ff<freshdata.length; ff++) {
             await db.collection('freshdata').doc(freshdata[ff].id).delete()
         }
 
-    //undefined throws an error still
     for (let g = 0; g<tickerList.length; g++){
         if (tickerList[g][1]!= 0) {
             tickerCounted.push(tickerList[g])
@@ -112,5 +105,4 @@ async function tickerCount (cleanedWords, db) {
             )
         }  
     } 
-    //console.log(tickerCounted)
 }
