@@ -9,14 +9,19 @@
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
 </head>
 
-<body>
-  <div class="py-8 md:px-32 px-0 md:w-1/2 mx-4 w-full mx-auto">
+<body class = "bg-blue-800">
+  <div class="md:w-1/2 w-full mx-auto bg-yellow-300">
+    <div class="md:w-1/2 md:p-84 py-8 mx-auto">
+      <img class="rounded-xl" src="https://upload.wikimedia.org/wikipedia/en/f/f0/WallStreetBets.png">
+    </div>
+
     <div class="flex items-center">
-      <div class="md:mx-0 mx-4"><span class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">WSB Tickers</span></div>
+      
+      <div class="md:mx-0"><span class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-purple-500">WSB Tickers</span></div>
       <div class="ml-auto text-sm sign-in-or-sign-out"></div>
       <div class="tickers"></div>
-    </div>
- 
+    </div> 
+
     <div class="OL"></div>
     <!--This is the botton to switch to favorited item --> 
     <button id="favorites" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Show Favorites</button>
@@ -25,7 +30,6 @@
       <input type="text" id="new favorite ticker" name="new favorite ticker" placeholder="enter stock ticker" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
       <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Store ticker</button>
     </form>
-
   </div>
   
   <!-- Put the Firebase config here -->
