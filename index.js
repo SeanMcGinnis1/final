@@ -9,6 +9,15 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let feed = json.results
     
     //Sean: this calls the netlify function to fetch the JSON from WSB
+     let response1 = await fetch('/.netlify/functions/feed2json')
+     let json = await response1.json()
+    // console.log(json)
+    //Sean: End of call to netlify function to fetch the JSON
+
+    parsecontent(json,db)
+    generateGraph(db)
+
+
      await fetch('/.netlify/functions/Feed2JSON')
      
   } else {
@@ -162,3 +171,109 @@ function isUpperCase(str) {
   return str === str.toUpperCase()
 }
 
+
+//Building out the Graph through the DIV class
+async function generateGraph(db) {
+//Steps for graph:
+//1) pull data from firebase
+let countedTickersQuery = await db.collection('countedtickers').get()
+let countedTickers = countedTickersQuery.docs
+let First = {
+  count: 0,
+  ticker: ''
+}
+let Second = {
+  count: 0,
+  ticker: ''
+}
+let Third = {
+  count: 0,
+  ticker: ''
+}
+let Fourth = {
+  count: 0,
+  ticker: ''
+}
+let Fifth = {
+  count: 0,
+  ticker: ''
+}
+//2) sort top 5 most commented tickers
+for (let q=0; q<countedTickers.length; q++) {
+  console.log(countedTickers[q].data())
+  if (countedTickers[q].data().count > First.count) {
+    Fifth.count = Fourth.count
+    Fifth.ticker = Fourth.ticker
+    Fourth.count = Third.count
+    Fourth.ticker = Third.ticker
+    Third.count = Second.count
+    Third.ticker = Second.ticker
+    Second.count = First.count
+    Second.ticker = First.ticker
+    First.count = countedTickers[q].data().count
+    First.ticker = countedTickers[q].data().ticker
+  } else if (countedTickers[q].data().count > Second.count) {
+    Fifth.count = Fourth.count
+    Fifth.ticker = Fourth.ticker
+    Fourth.count = Third.count
+    Fourth.ticker = Third.ticker
+    Third.count = Second.count
+    Third.ticker = Second.ticker
+    Second.count = countedTickers[q].data().count
+    Second.ticker = countedTickers[q].data().ticker
+  } else if (countedTickers[q].data().count > Third.count) {
+    Fifth.count = Fourth.count
+    Fifth.ticker = Fourth.ticker
+    Fourth.count = Third.count
+    Fourth.ticker = Third.ticker
+    Third.count = countedTickers[q].data().count
+    Third.ticker = countedTickers[q].data().ticker
+  } else if (countedTickers[q].data().count > Fourth.count) {
+    Fifth.count = Fourth.count
+    Fifth.ticker = Fourth.ticker
+    Fourth.count = countedTickers[q].data().count
+    Fourth.ticker = countedTickers[q].data().ticker
+  } else if (countedTickers[q].data().count > Fifth.count) {
+    Fifth.count = countedTickers[q].data().count
+    Fifth.ticker = countedTickers[q].data().ticker
+  }
+}
+
+console.log(First)
+console.log(Second)
+console.log(Third)
+console.log(Fourth)
+console.log(Fifth)
+
+//3) add inner html to show graph
+document.querySelector('.OL').innerHTML = `
+<ol>
+  <li>Top Tickers by Number of Mentions</li>
+  <li>${First.ticker} has ${First.count} mentions</li>
+  <li>${Second.ticker} has ${Second.count} mentions</li>
+  <li>${Third.ticker} has ${Third.count} mentions</li>
+  <li>${Fourth.ticker} has ${Fourth.count} mentions</li>
+  <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
+</ol>
+`
+//Create functionality for clicked button
+let FButton = document.querySelector(`#favorites`)
+FButton.addEventListener('click', async function(event) {
+  event.preventDefault()
+  console.log(`Favorites button clicked!`)
+  //figure out how to get the right user ID for this
+  let favoritesQuery = await db.collection('Favorites').where('userId', '==', user.uid).get()
+  let Favorites = favoritesQuery.docs
+  
+  document.querySelector('.OL').innerHTML = `
+<ol>
+  <li>Top Tickers by Number of Mentions</li>
+  <li>${Favorites[0].data().ticker} has ${Favorites[0].data().count} mentions</li>
+  <li>${Favorites[1].data().ticker} has ${Favorites[1].data().count} mentions</li>
+  <li>${Favorites[2].data().ticker} has ${Favorites[2].data().count} mentions</li>
+  <li>${Favorites[3].data().ticker} has ${Favorites[3].data().count} mentions</li>
+  <li>${Favorites[4].data().ticker} has ${Favorites[4].data().count} mentions</li>
+</ol>
+`
+})
+}
