@@ -13,7 +13,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
     //let json = await response1.json()
     // console.log(json)
     //Sean: End of call to netlify function to fetch the JSON
-
+    console.log(user.uid)
+    //SAVE USER INFO
+    db.collection('users').doc(user.uid).set({
+      name: user.displayName,
+      email: user.email
+    })
     //parsecontent(json,db)
     generateGraph(db)
 
@@ -200,7 +205,7 @@ let Fifth = {
 }
 //2) sort top 5 most commented tickers
 for (let q=0; q<countedTickers.length; q++) {
-  console.log(countedTickers[q].data())
+  //console.log(countedTickers[q].data())
   if (countedTickers[q].data().count > First.count) {
     Fifth.count = Fourth.count
     Fifth.ticker = Fourth.ticker
@@ -239,11 +244,11 @@ for (let q=0; q<countedTickers.length; q++) {
   }
 }
 
-console.log(First)
-console.log(Second)
-console.log(Third)
-console.log(Fourth)
-console.log(Fifth)
+// console.log(First)
+// console.log(Second)
+// console.log(Third)
+// console.log(Fourth)
+// console.log(Fifth)
 
 //3) add inner html to show graph
 document.querySelector('.OL').innerHTML = `
@@ -256,15 +261,19 @@ document.querySelector('.OL').innerHTML = `
   <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
 </ol>
 `
+
+let favoritesQuery = await db.collection('Favorites').where('userId', '==', user.uid).get()
+let Favorites = favoritesQuery.docs
 //Create functionality for clicked button
+
 let FButton = document.querySelector(`#favorites`)
 FButton.addEventListener('click', async function(event) {
   event.preventDefault()
   console.log(`Favorites button clicked!`)
   //figure out how to get the right user ID for this
-  let favoritesQuery = await db.collection('Favorites').where('userId', '==', user.uid).get()
-  let Favorites = favoritesQuery.docs
   
+  
+  //the number of mentiones here is called wrong
   document.querySelector('.OL').innerHTML = `
 <ol>
   <li>Top Tickers by Number of Mentions</li>
@@ -275,5 +284,22 @@ FButton.addEventListener('click', async function(event) {
   <li>${Favorites[4].data().ticker} has ${Favorites[4].data().count} mentions</li>
 </ol>
 `
+})
+
+//Functionality for Adding a new favorite
+let NFButton = document.querySelector(`#new favorite`)
+NFButton.addEventListener('submit', async function(event) {
+  event.preventDefault()
+  console.log(`A New Favorite was submitted!`)
+  
+  let newFav = document.querySelector('#new favorite').value
+  if (newFav.length > 0 && Favorites.length < 5) {
+    let docRef = await db.collection('Favorites').doc(`${user.uid}-${newFav}`).set({
+      ticker: newFav
+    })
+  } else {
+    console.log('you already have 5 favorites or the ticker was invalid')
+  }
+  
 })
 }
