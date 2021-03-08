@@ -3,7 +3,6 @@ let fetch = require('node-fetch')
 
 exports.handler = async function(event) {
     let response = await fetch('https://feed2json.org/convert?url=https%3A%2F%2Fwww.reddit.com%2Fr%2Fwallstreetbets%2F.rss')
-    let json = await response.json()
     let db = firebase.firestore()
 
     var posts = []
@@ -28,8 +27,6 @@ exports.handler = async function(event) {
         body: JSON.stringify(json)
     }
 }
-
-
 
 
     //checks pulled posts against historical posts in firestore database and sets newPost = false if post already has been tracked
