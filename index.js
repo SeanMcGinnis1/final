@@ -263,8 +263,8 @@ document.querySelector('.OL').innerHTML = `
 </ol>
 `
 //Functionality for most mentioned return button
-let FButton = document.querySelector(`#mostmentioned`)
-FButton.addEventListener('click', async function(event) {
+let MMButton = document.querySelector(`#mostMentioned`)
+MMButton.addEventListener('click', async function(event) {
   event.preventDefault()
   console.log(`Most Mentioned button clicked!`)
   document.querySelector('.OL').innerHTML = `
