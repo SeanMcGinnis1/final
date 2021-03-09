@@ -20,8 +20,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
       email: user.email
     })
     
-    await fetch('/.netlify/functions/feedProcessing')
-    generateGraph(db,user)
+
 
 
     await fetch('/.netlify/functions/feedProcessing')
