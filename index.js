@@ -251,7 +251,7 @@ for (let q=0; q<countedTickers.length; q++) {
 // console.log(Fourth)
 // console.log(Fifth)
 
-//3) add inner html to show graph
+//3) add inner html to show list
 document.querySelector('.OL').innerHTML = `
 <ol>
   <li>Top Tickers by Number of Mentions</li>
@@ -262,14 +262,22 @@ document.querySelector('.OL').innerHTML = `
   <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
 </ol>
 `
-//Functionality for most mentioned button
-// let FButton = document.querySelector(`#mostmentioned`)
-// FButton.addEventListener('click', async function(event) {
-//   event.preventDefault()
-//   console.log(`Most Mentioned button clicked!`)
-
-
-
+//Functionality for most mentioned return button
+let FButton = document.querySelector(`#mostmentioned`)
+FButton.addEventListener('click', async function(event) {
+  event.preventDefault()
+  console.log(`Most Mentioned button clicked!`)
+  document.querySelector('.OL').innerHTML = `
+  <ol>
+    <li>Top Tickers by Number of Mentions</li>
+    <li>${First.ticker} has ${First.count} mentions</li>
+    <li>${Second.ticker} has ${Second.count} mentions</li>
+    <li>${Third.ticker} has ${Third.count} mentions</li>
+    <li>${Fourth.ticker} has ${Fourth.count} mentions</li>
+    <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
+  </ol>
+  `
+})
 
 
 
