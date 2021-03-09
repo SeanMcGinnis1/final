@@ -271,6 +271,9 @@ let FButton = document.querySelector(`#favorites`)
 FButton.addEventListener('click', async function(event) {
   event.preventDefault()
   console.log(`Favorites button clicked!`)
+  let favoritesQuery = await db.collection('Favorites').where('userId', '==', user.uid).get()
+  let Favorites = favoritesQuery.docs
+
   let favs = []
   
   for (let l = 0; l<countedTickers.length; l++) {
@@ -281,18 +284,20 @@ FButton.addEventListener('click', async function(event) {
     }
   }
 
+  if(Favorites.length == 0) {
+    console.log('No Favorited Tickers to Show')
+  }
 
   document.querySelector('.OL').innerHTML = `
-<ol>
-  <li>Top Tickers by Number of Mentions</li>
-  <li>${Favorites[0].data().ticker} has ${favs[0]} mentions</li>
-  <li>${Favorites[1].data().ticker} has ${favs[1]} mentions</li>
-  <li>${Favorites[2].data().ticker} has ${favs[2]} mentions</li>
-  <li>${Favorites[3].data().ticker} has ${favs[3]} mentions</li>
-  <li>${Favorites[4].data().ticker} has ${favs[4]} mentions</li> 
+  <ol>
+  <li>Favorite Ticker Mentions</li>`
 
-`
-
+  console.log(Favorites.length)
+  for (let u = 0; u<Favorites.length; u++) {
+    document.querySelector('.OL').insertAdjacentHTML('beforeend',`
+    <li>${Favorites[u].data().ticker} has ${favs[u]} mentions</li>
+    `
+  )}
 })
 
 //Functionality for Adding a new favorite
@@ -302,7 +307,7 @@ document.querySelector('form').addEventListener('submit', async function(event) 
   
   let newFav = document.querySelector('#newfavoriteticker').value
   //console.log(Favorites.length)
-  if (newFav.length > 0 && Favorites.length < 6) {
+  if (newFav.length > 0 ) {
     let docRef = await db.collection('Favorites').doc(`${user.uid}-${newFav}`).set({
       ticker: newFav,
       userId: user.uid
