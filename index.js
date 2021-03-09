@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     //calling necessary functions
     await fetch('/.netlify/functions/feedProcessing')
-    await fetch('/.netlify/functions/addSkimmedTickers')
+    await fetch('/.netlify/functions/addskimmedtickers')
 
     generateGraph(db,user)
      
@@ -65,6 +65,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
     document.querySelector('#favorites').classList.add('hidden')
     document.querySelector('#mostMentioned').classList.add('hidden')
     document.querySelector('.signedIn').classList.add('hidden')
+    document.querySelector('#list').classList.add('hidden')
+    document.querySelector('#allcaps').classList.add('hidden')
   }
 })
 
@@ -318,12 +320,16 @@ FButton.addEventListener('click', async function(event) {
   let Favorites = favoritesQuery.docs
 
   let favs = []
-  
-  for (let l = 0; l<countedTickers.length; l++) {
-    for (let m = 0; m < Favorites.length; m++) {
-      if (countedTickers[l].data().ticker == Favorites[m].data().ticker) {
+
+  for (let m = 0; m < Favorites.length; m++) {
+    for (let l = 0; l<countedTickers.length; l++) {
+        if (countedTickers[l].data().ticker == Favorites[m].data().ticker) {
         favs[m] = countedTickers[l].data().count
       }
+    }
+    console.log(favs)
+    if (favs[m] == undefined) {
+      favs[m]= 0
     }
   }
 

@@ -19,7 +19,7 @@
     <div class="ml-auto text-sm sign-in-or-sign-out"></div>
 
     <div class="flex items-center" id="buttons">
-      <div class="mx-auto mb-12 bg-blue-100 OL"></div>
+      <div id="list" class="mx-auto mb-12 bg-blue-100 OL"></div>
       <button id="favorites" class="mx-auto bg-yellow-300 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Show Favorite Tickers</button>
       <button id="mostMentioned" class="mx-auto bg-yellow-300 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Most Mentioned Tickers</button>
     </div> 
@@ -35,6 +35,7 @@
       <input type="text" id="newfavoriteticker" name="new favorite ticker" placeholder="enter stock ticker" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
       <button class="bg-yellow-300 hover:bg-yellow-300 text-white px-4 py-2 rounded-xl">Store ticker</button>
     </form>
+    <div id="allcaps">Favorite tickers must use ALL CAPS to function</div>
   </div>
   
   <!-- Put the Firebase config here -->
