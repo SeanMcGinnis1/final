@@ -93,7 +93,7 @@ async function tickerCount (cleanedWords, db) {
     }
     
     for (let c = 0; c<cleanedWords.length; c++){
-        for (let w = 0; w<cleanedWords[w].length; w++)
+        for (let w = 0; w<cleanedWords[w].length; w++){
             for (let t = 0; t<tickerList.length; t++){
                 if (cleanedWords[c][w]==tickerList[t][0]) {
                     tickerList[t][1] = tickerList[t][1] + 1
@@ -126,4 +126,4 @@ async function tickerCount (cleanedWords, db) {
             )
         }  
     } 
-
+}
