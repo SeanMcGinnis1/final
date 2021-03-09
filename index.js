@@ -20,9 +20,22 @@ firebase.auth().onAuthStateChanged(async function(user) {
       email: user.email
     })
     //parsecontent(json,db)
-    generateGraph(db,user)
 
+    //Signed in message
+    let NameQuery = await db.collection('users').where('email', '==', user.email).get()
+    let Name = NameQuery.docs
+    console.log(Name[0].data().name)
+    document.querySelector('#signedIn').insertAdjacentHTML('beforeend',`${Name[0].data().name}
+    `)
+    //log out button
+    let LogOutButton = document.querySelector(`#logOut`)
+    LogOutButton.addEventListener('click', async function(event) {
+      event.preventDefault()
+      firebase.auth().signOut()
+      console.log(`Log Out button clicked!`)
+    })
 
+    //calling necessary functions
     await fetch('/.netlify/functions/feedProcessing')
     await fetch('/.netlify/functions/addskimmedtickers')
 
@@ -45,6 +58,12 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     // Starts FirebaseUI Auth
     ui.start('.sign-in-or-sign-out', authUIConfig)
+
+    //hiding items while logged out
+    document.querySelector('#newfavorite').classList.add('hidden')
+    document.querySelector('#favorites').classList.add('hidden')
+    document.querySelector('#mostMentioned').classList.add('hidden')
+    document.querySelector('.signedIn').classList.add('hidden')
   }
 })
 
