@@ -177,9 +177,9 @@ function isUpperCase(str) {
 }
 
 
-//Building out the Graph through the DIV class
+//Building out the listed tickers and mentions
 async function generateGraph(db,user) {
-//Steps for graph:
+//Steps for list:
 console.log(user.uid)
 //1) pull data from firebase
 let countedTickersQuery = await db.collection('countedtickers').get()
@@ -262,10 +262,22 @@ document.querySelector('.OL').innerHTML = `
   <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
 </ol>
 `
+//Functionality for most mentioned button
+// let FButton = document.querySelector(`#mostmentioned`)
+// FButton.addEventListener('click', async function(event) {
+//   event.preventDefault()
+//   console.log(`Most Mentioned button clicked!`)
+
+
+
+
+
+
 
 let favoritesQuery = await db.collection('Favorites').where('userId', '==', user.uid).get()
 let Favorites = favoritesQuery.docs
-//Create functionality for clicked button
+
+//Create functionality for favorites button
 
 let FButton = document.querySelector(`#favorites`)
 FButton.addEventListener('click', async function(event) {
