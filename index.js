@@ -19,11 +19,10 @@ firebase.auth().onAuthStateChanged(async function(user) {
       name: user.displayName,
       email: user.email
     })
-    //parsecontent(json,db)
+    
+    await fetch('/.netlify/functions/feedProcessing')
     generateGraph(db,user)
 
-
-    //await fetch('/.netlify/functions/feedProcessing') - turn off for UI testing
      
   } else {
     // Signed out
