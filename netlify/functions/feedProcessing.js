@@ -23,6 +23,7 @@ exports.handler = async function(event) {
     }
     //check posts for duplicate entries already stored in firebase and cleans them to identify words that might be tickers
     newPostsCleanPosts(posts, db)
+    
     return {
         statusCode: 200,
         body: JSON.stringify(json)
@@ -57,41 +58,62 @@ async function newPostsCleanPosts(posts, db) {
             }
         )
         cleanedWords.push(
-        cleanWord(posts[i].postTitle.split(" "))
+            cleanWord(posts[i].postTitle.split(" "))
         )
         }
     }
   
-    
     tickerCount (cleanedWords, db)
 }
 
+//removes special characters and takes only all-caps words for potential tickers to be checked against firebase database
+function cleanWord(array){
+    var uppercaseWords = [""]
+    for (let i = 0; i<array.length; i++) {
+      var titleWord = array[i].replace("$", '').replace("!", '').replace("#", '').replace("?", '')
+      if (isUpperCase(titleWord)){
+        uppercaseWords.push(titleWord)
+       }
+    }  
+    return uppercaseWords
+  }
+  
+function isUpperCase(str) {
+    return str === str.toUpperCase()
+}
+
+
 async function tickerCount (cleanedWords, db) {
-        tickerList = []
-        tickerCounted = []
-        let knowntickersquery = await db.collection('knowntickers').get()
-        knowntickers = knowntickersquery.docs
-        for (let i = 0; i<knowntickers.length; i++) {
-            tickerList.push([knowntickers[i].data().text, 0])
-        }
-        
-        for (let c = 0; c<cleanedWords.length; c++){
+    tickerList = []
+    tickerCounted = []
+    let knowntickersquery = await db.collection('knowntickers').get()
+    knowntickers = knowntickersquery.docs
+    for (let i = 0; i<knowntickers.length; i++) {
+        tickerList.push([knowntickers[i].data().text, 0])
+    }
+    
+    for (let c = 0; c<cleanedWords.length; c++){
         for (let w = 0; w<cleanedWords[w].length; w++){
             for (let t = 0; t<tickerList.length; t++){
-            if (cleanedWords[c][w]==tickerList[t][0]) {
-                tickerList[t][1] = tickerList[t][1] + 1
-            }   
+                if (cleanedWords[c][w]==tickerList[t][0]) {
+                    tickerList[t][1] = tickerList[t][1] + 1
+                    console.log (tickerList[t][0])
+                    console.log ("counted")
+                }   
             }        
         }
     }
 
-        let freshdataquery = await db.collection('freshdata').get()
-        freshdata = freshdataquery.docs
-        for (let ff = 0; ff<freshdata.length; ff++) {
-            await db.collection('freshdata').doc(freshdata[ff].id).delete()
-        }
-        console.log ("clear fresh data")
-
+    let freshdataquery = await db.collection('freshdata').get()
+    freshdata = freshdataquery.docs
+    for (let ff = 0; ff<freshdata.length; ff++) {
+        await db.collection('freshdata').doc(freshdata[ff].id).delete()
+    }
+    console.log ("cleaned words")
+    console.log (cleanedWords)
+    console.log ("--------")
+        
+    
     for (let g = 0; g<tickerList.length; g++){
         if (tickerList[g][1]!= 0) {
             tickerCounted.push(tickerList[g])
@@ -99,10 +121,10 @@ async function tickerCount (cleanedWords, db) {
             console.log(tickerList[g][1])
 
             let docRef = await db.collection('freshdata').add( 
-            {
-                ticker: `${tickerList[g][0]}`,
-                count: `${tickerList[g][1]}`
-            }
+                {
+                    ticker: `${tickerList[g][0]}`,
+                    count: `${tickerList[g][1]}`
+                }
             )
         }  
     } 
