@@ -38,7 +38,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     //calling necessary functions
     await fetch('/.netlify/functions/feedProcessing')
-    await fetch('/.netlify/functions/addSkimmedTickers')
+    await fetch('/.netlify/functions/addskimmedtickers')
 
     generateGraph(db,user)
      

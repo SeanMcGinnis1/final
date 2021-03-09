@@ -89,7 +89,7 @@ async function tickerCount (cleanedWords, db) {
     let knowntickersquery = await db.collection('knowntickers').get()
     knowntickers = knowntickersquery.docs
     for (let i = 0; i<knowntickers.length; i++) {
-        tickerList.push([knowntickers[i].data().text, 0])
+        tickerList.push([knowntickers[i].data().text,0])
     }
     
     for (let c = 0; c<cleanedWords.length; c++){
@@ -123,7 +123,7 @@ async function tickerCount (cleanedWords, db) {
             let docRef = await db.collection('freshdata').add( 
                 {
                     ticker: `${tickerList[g][0]}`,
-                    count: `${tickerList[g][1]}`
+                    count: tickerList[g][1]
                 }
             )
         }  
