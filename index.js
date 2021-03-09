@@ -23,6 +23,11 @@ firebase.auth().onAuthStateChanged(async function(user) {
     await fetch('/.netlify/functions/feedProcessing')
     generateGraph(db,user)
 
+
+    await fetch('/.netlify/functions/feedProcessing')
+    await fetch('/.netlify/functions/addskimmedtickers')
+
+    generateGraph(db,user)
      
   } else {
     // Signed out
