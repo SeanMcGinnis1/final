@@ -19,7 +19,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
       name: user.displayName,
       email: user.email
     })
-    //parsecontent(json,db)
+    
+
 
     //Signed in message
     let NameQuery = await db.collection('users').where('email', '==', user.email).get()
@@ -37,7 +38,7 @@ firebase.auth().onAuthStateChanged(async function(user) {
 
     //calling necessary functions
     await fetch('/.netlify/functions/feedProcessing')
-    await fetch('/.netlify/functions/addskimmedtickers')
+    await fetch('/.netlify/functions/addSkimmedTickers')
 
     generateGraph(db,user)
      
