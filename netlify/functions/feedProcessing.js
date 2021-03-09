@@ -90,6 +90,7 @@ async function tickerCount (cleanedWords, db) {
         for (let ff = 0; ff<freshdata.length; ff++) {
             await db.collection('freshdata').doc(freshdata[ff].id).delete()
         }
+        console.log ("clear fresh data")
 
     for (let g = 0; g<tickerList.length; g++){
         if (tickerList[g][1]!= 0) {
