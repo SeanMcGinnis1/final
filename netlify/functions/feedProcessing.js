@@ -31,7 +31,7 @@ exports.handler = async function(event) {
 }
 
 
-    //checks pulled posts against historical posts in firestore database and sets newPost = false if post already has been tracked
+//checks pulled posts against historical posts in firestore database and sets newPost = false if post already has been tracked
 async function newPostsCleanPosts(posts, db) {
     //check if postkey is in firebase already
     //adds in the postkeys into firebase
