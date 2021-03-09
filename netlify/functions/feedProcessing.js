@@ -66,6 +66,23 @@ async function newPostsCleanPosts(posts, db) {
     tickerCount (cleanedWords, db)
 }
 
+//removes special characters and takes only all-caps words for potential tickers to be checked against firebase database
+function cleanWord(array){
+    var uppercaseWords = [""]
+    for (let i = 0; i<array.length; i++) {
+      var titleWord = array[i].replace("$", '').replace("!", '').replace("#", '').replace("?", '')
+      if (isUpperCase(titleWord)){
+        uppercaseWords.push(titleWord)
+       }
+    }  
+    return uppercaseWords
+  }
+  
+function isUpperCase(str) {
+    return str === str.toUpperCase()
+}
+
+
 async function tickerCount (cleanedWords, db) {
         tickerList = []
         tickerCounted = []
@@ -90,8 +107,11 @@ async function tickerCount (cleanedWords, db) {
         for (let ff = 0; ff<freshdata.length; ff++) {
             await db.collection('freshdata').doc(freshdata[ff].id).delete()
         }
+        console.log (cleanedWords)
         console.log ("clear fresh data")
-
+        console.log (tickerList)
+        
+    
     for (let g = 0; g<tickerList.length; g++){
         if (tickerList[g][1]!= 0) {
             tickerCounted.push(tickerList[g])
