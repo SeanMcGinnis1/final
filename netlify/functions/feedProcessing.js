@@ -98,6 +98,7 @@ async function tickerCount (cleanedWords, db) {
                 if (cleanedWords[c][w]==tickerList[t][0]) {
                     tickerList[t][1] = tickerList[t][1] + 1
                     console.log (tickerList[t][0])
+                    console.log ("counted")
                 }   
             }        
         }
@@ -108,8 +109,9 @@ async function tickerCount (cleanedWords, db) {
     for (let ff = 0; ff<freshdata.length; ff++) {
         await db.collection('freshdata').doc(freshdata[ff].id).delete()
     }
+    console.log ("cleaned words")
     console.log (cleanedWords)
-    console.log ("clear fresh data")
+    console.log ("--------")
         
     
     for (let g = 0; g<tickerList.length; g++){
