@@ -13,7 +13,7 @@ exports.handler = async function(event) {
 
   
 
- console.log(freshData.length)
+  console.log(freshData.length)
   console.log('---------------')
   //process data
   for (let i=0; i<freshData.length; i++) {
