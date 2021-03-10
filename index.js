@@ -52,12 +52,14 @@ firebase.auth().onAuthStateChanged(async function(user) {
     ui.start('.sign-in-or-sign-out', authUIConfig)
 
     //hiding items while logged out
-    document.querySelector('#newfavorite').classList.add('hidden')
+    document.querySelector('#newfavoriteticker').classList.add('hidden')
     document.querySelector('#favorites').classList.add('hidden')
     document.querySelector('#mostMentioned').classList.add('hidden')
-    document.querySelector('.signedIn').classList.add('hidden')
+    document.querySelector('#signedIn').classList.add('hidden')
     document.querySelector('#list').classList.add('hidden')
     document.querySelector('#allcaps').classList.add('hidden')
+    document.querySelector('#favbutton').classList.add('hidden')
+    document.querySelector('#logOut').classList.add('hidden')
   }
 })
 
