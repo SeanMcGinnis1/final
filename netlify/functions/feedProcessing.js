@@ -128,4 +128,7 @@ async function tickerCount (cleanedWords, db) {
             )
         }  
     } 
+
+    //storing the counted tickers
+    //fetch('/.netlify/functions/addskimmedtickers')
 }
