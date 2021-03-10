@@ -109,6 +109,8 @@ let favoritesQuery = await db.collection('Favorites').where('userId', '==', user
 let Favorites = favoritesQuery.docs
 
 //Create functionality for favorites button
+let countedTickersQuery = await db.collection('countedtickers').get()
+let countedTickers = countedTickersQuery.docs
 
 let FButton = document.querySelector(`#favorites`)
 FButton.addEventListener('click', async function(event) {
