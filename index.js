@@ -65,70 +65,8 @@ firebase.auth().onAuthStateChanged(async function(user) {
 //Building out the listed tickers and mentions
 async function generateGraph(db,user) {
 //Steps for list:
-console.log(user.uid)
-//1) pull data from firebase
-let countedTickersQuery = await db.collection('countedtickers').get()
-let countedTickers = countedTickersQuery.docs
-let First = {
-  count: 0,
-  ticker: ''
-}
-let Second = {
-  count: 0,
-  ticker: ''
-}
-let Third = {
-  count: 0,
-  ticker: ''
-}
-let Fourth = {
-  count: 0,
-  ticker: ''
-}
-let Fifth = {
-  count: 0,
-  ticker: ''
-}
-//2) sort top 5 most commented tickers
-for (let q=0; q<countedTickers.length; q++) {
-  //console.log(countedTickers[q].data())
-  if (countedTickers[q].data().count > First.count) {
-    Fifth.count = Fourth.count
-    Fifth.ticker = Fourth.ticker
-    Fourth.count = Third.count
-    Fourth.ticker = Third.ticker
-    Third.count = Second.count
-    Third.ticker = Second.ticker
-    Second.count = First.count
-    Second.ticker = First.ticker
-    First.count = countedTickers[q].data().count
-    First.ticker = countedTickers[q].data().ticker
-  } else if (countedTickers[q].data().count > Second.count) {
-    Fifth.count = Fourth.count
-    Fifth.ticker = Fourth.ticker
-    Fourth.count = Third.count
-    Fourth.ticker = Third.ticker
-    Third.count = Second.count
-    Third.ticker = Second.ticker
-    Second.count = countedTickers[q].data().count
-    Second.ticker = countedTickers[q].data().ticker
-  } else if (countedTickers[q].data().count > Third.count) {
-    Fifth.count = Fourth.count
-    Fifth.ticker = Fourth.ticker
-    Fourth.count = Third.count
-    Fourth.ticker = Third.ticker
-    Third.count = countedTickers[q].data().count
-    Third.ticker = countedTickers[q].data().ticker
-  } else if (countedTickers[q].data().count > Fourth.count) {
-    Fifth.count = Fourth.count
-    Fifth.ticker = Fourth.ticker
-    Fourth.count = countedTickers[q].data().count
-    Fourth.ticker = countedTickers[q].data().ticker
-  } else if (countedTickers[q].data().count > Fifth.count) {
-    Fifth.count = countedTickers[q].data().count
-    Fifth.ticker = countedTickers[q].data().ticker
-  }
-}
+let response = await fetch('/.netlify/functions/displaydataprocessing')
+let array = await response.json()
 
 // console.log(First)
 // console.log(Second)
@@ -140,11 +78,11 @@ for (let q=0; q<countedTickers.length; q++) {
 document.querySelector('.OL').innerHTML = `
 <ol>
   <li>Top Tickers by Number of Mentions</li>
-  <li>${First.ticker} has ${First.count} mentions</li>
-  <li>${Second.ticker} has ${Second.count} mentions</li>
-  <li>${Third.ticker} has ${Third.count} mentions</li>
-  <li>${Fourth.ticker} has ${Fourth.count} mentions</li>
-  <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
+  <li>${array[0].ticker} has ${array[0].count} mentions</li>
+  <li>${array[1].ticker} has ${array[1].count} mentions</li>
+  <li>${array[2].ticker} has ${array[2].count} mentions</li>
+  <li>${array[3].ticker} has ${array[3].count} mentions</li>
+  <li>${array[4].ticker} has ${array[4].count} mentions</li>
 </ol>
 `
 //Functionality for most mentioned return button
@@ -155,11 +93,11 @@ MMButton.addEventListener('click', async function(event) {
   document.querySelector('.OL').innerHTML = `
   <ol>
     <li>Top Tickers by Number of Mentions</li>
-    <li>${First.ticker} has ${First.count} mentions</li>
-    <li>${Second.ticker} has ${Second.count} mentions</li>
-    <li>${Third.ticker} has ${Third.count} mentions</li>
-    <li>${Fourth.ticker} has ${Fourth.count} mentions</li>
-    <li>${Fifth.ticker} has ${Fifth.count} mentions</li>
+    <li>${array[0].ticker} has ${array[0].count} mentions</li>
+    <li>${array[1].ticker} has ${array[1].count} mentions</li>
+    <li>${array[2].ticker} has ${array[2].count} mentions</li>
+    <li>${array[3].ticker} has ${array[3].count} mentions</li>
+    <li>${array[4].ticker} has ${array[4].count} mentions</li>
   </ol>
   `
 })
