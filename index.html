@@ -9,8 +9,15 @@
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css" />
 </head>
 
+
+
 <body class = "bg-blue-900">
   <div class="md:w-3/4 w-full mx-auto bg-gray-100">
+    
+    <div class="signedIn md:flex bg-blue-100">
+      <div id="signedIn" class="md:w-1/2 bg-blue-100 OL">You are currently signed in as </div>
+      <button id="logOut" class="md:mx-auto rounded-xl bg-yellow-300 hover:bg-green-600 text-white px-4 ">Log Out</button>
+    </div> 
     
     <div class="md:w-1/2 md:p-84 py-8 mx-auto">
       <img class="rounded-xl" src="https://upload.wikimedia.org/wikipedia/en/f/f0/WallStreetBets.png">
@@ -19,25 +26,22 @@
     <div class="md:mx-0 w-full bg-blue-100 text-center "><span class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-yellow-500 to-blue-500">WSB Tickers</span></div>
     <div class="ml-auto text-sm sign-in-or-sign-out"></div>
 
-    <div class="flex items-center" id="buttons">
+    <div class="md:" id="buttons">
       <div id="list" class="mx-auto mb-12 bg-blue-100 OL"></div>
       <button id="favorites" class="mx-auto bg-yellow-300 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Show Favorite Tickers</button>
       <button id="mostMentioned" class="mx-auto bg-yellow-300 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Most Mentioned Tickers</button>
     </div> 
     <!--Signed in message and logout button-->
     
-    <div class="signedIn md:flex bg-blue-100">
-      <div id="signedIn" class="md:w-1/2 mb-12 bg-blue-100 OL">You are currently signed in as </div>
-      <button id="logOut" class="md:mx-auto w-1/2 bg-yellow-300 hover:bg-green-600 text-white px-4 py-2 rounded-xl">Log Out</button>
-    </div> 
+
 
     <!--This is the botton to switch to favorited item --> 
 
-    <form id = "newfavorite" class="w-full mt-8">
-      <input type="text" id="newfavoriteticker" name="new favorite ticker" placeholder="enter stock ticker" class="my-2 p-2 w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
-      <button class="bg-yellow-300 hover:bg-yellow-300 text-white px-4 py-2 rounded-xl">Store ticker</button>
+    <form id = "newfavorite" class="md:flex w-full mt-8 my-2 p-2">
+      <input type="text" id="newfavoriteticker" name="new favorite ticker" placeholder="enter stock ticker" class="md: w-64 border border-gray-400 rounded shadow-xl focus:outline-none focus:ring-purple-500 focus:border-purple-500">
+      <button class="md:bg-yellow-300 hover:bg-yellow-300 text-white px-4 rounded-xl">Store ticker</button>
     </form>
-    <div id="allcaps">Favorite tickers must use ALL CAPS to function</div>
+    <div id="allcaps" class= "text-gray-600">Favorite tickers must use ALL CAPS to function</div>
   </div>
   
   <!-- Put the Firebase config here -->
